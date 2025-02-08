@@ -1,4 +1,4 @@
-import os, random
+import os, random, time
 
 # when a class instantiate an other class we call it compound class
 class MagicNumber:
@@ -31,6 +31,7 @@ class MagicNumber:
         self.player.get_number()
 
         print(f"Computer number: {self.computer.magic_number}")
+        time.sleep(3)
 
         while self.player.magic_number != self.computer.magic_number:
             self.clear_screen()
@@ -40,6 +41,8 @@ class MagicNumber:
             
             print(f"Wrong guess. You have {max_tries} tries left.")
             self.player.get_number()
+        
+        self.round_end_conditions()
     
     def round_end_conditions(self):
         self.clear_screen()
