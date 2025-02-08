@@ -30,9 +30,6 @@ class MagicNumber:
         self.computer.get_number()
         self.player.get_number()
 
-        print(f"Computer number: {self.computer.magic_number}")
-        time.sleep(3)
-
         while self.player.magic_number != self.computer.magic_number:
             self.clear_screen()
             max_tries -=1
@@ -53,6 +50,12 @@ class MagicNumber:
         else:
             self.player.remove_coins(10)
             print("You lost this round :(")
+
+        if self.player.coins <= 0:
+            self.clear_screen()
+            print("You don't have money for the next round.")
+            time.sleep(3)
+            self.exit_game()
         
         response = self.player.ask_next_round()
         if response == "y":
@@ -69,7 +72,7 @@ class MagicNumber:
 class Player:
     def __init__(self):
         self.name = None
-        self.coins = 100
+        self.coins = 20
         self.magic_number = 0
     
     def ask_next_round(self):
@@ -78,12 +81,12 @@ class Player:
     def add_coins(self, coins):
         self.coins += coins
         print(f"{self.name} winds {coins} coins.")
-        print(f"Now you have {self.coins}")
+        print(f"Now you have {self.coins} coins")
 
     def remove_coins(self, coins):
         self.coins -= coins
         print(f"{self.name} loses {coins} coins.")
-        print(f"Now you have {self.coins}")
+        print(f"Now you have {self.coins} coins")
 
     def get_name(self):
         self.name = input("What is your name? ")
