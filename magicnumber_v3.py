@@ -5,11 +5,10 @@ class MagicNumber:
     def __init__(self):
         self.player = Player()
         self.computer = Computer()
-        self.min_number = 1
-        self.max_number = 10
 
         self.clear_screen()
         self.intro()
+        self.game_loop()
 
     def clear_screen(self):
         if os.name == "nt":
@@ -21,7 +20,13 @@ class MagicNumber:
         print("-"*50, "MAGIC NUMBERS", "-"*50)
         self.player.get_name()
         print(f"Well... hello {self.player}")
-        print(f"I have a number between {self.min_number} and {self.max_number}. Can you guess it?")
+        print(f"I have a number between {self.computer.min_number} and {self.computer.max_number}. Can you guess it?")
+
+    def game_loop(self):
+        max_tries = 3
+
+        print(f"You have {max_tries} tries.")
+        print(f"MAGIC NUMBER: {self.computer.magic_number}")
 
 class Player:
     def __init__(self):
@@ -35,7 +40,10 @@ class Player:
         return self.name
 
 class Computer:
-    pass
+    def __init__(self):
+        self.min_number = 1
+        self.max_number = 10
+        self.magic_number = random.randint(self.min_number, self.max_number)
 
 
 MagicNumber()
