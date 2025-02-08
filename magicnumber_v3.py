@@ -19,6 +19,7 @@ class MagicNumber:
     def intro(self):
         print("-"*50, "MAGIC NUMBERS", "-"*50)
         self.player.get_name()
+        self.clear_screen()
         print(f"Well... hello {self.player}")
         print(f"I have a number between {self.computer.min_number} and {self.computer.max_number}. Can you guess it?")
 
