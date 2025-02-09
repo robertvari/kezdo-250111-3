@@ -77,9 +77,11 @@ class Player_BASE:
         self.name = None
         self.coins = 100
         self.magic_number = 0
+        self.min_number = 1
+        self.max_number = 10
     
     def get_number(self):
-        self.magic_number = random.randint(1, 10)
+        self.magic_number = random.randint(self.min_number, self.max_number)
     
     def get_name(self):
         first_names = ["Liam", "Emma", "Noah", "Olivia", "Ethan", "Ava", "James", "Sophia", "Benjamin", "Mia"]
@@ -99,8 +101,6 @@ class Player_BASE:
     def __str__(self):
         return self.name
 
-
-
 class Player(Player_BASE):
     def ask_next_round(self):
         return input("Do you want to play again? (y/n)")
@@ -111,7 +111,7 @@ class Player(Player_BASE):
 
     # full override on get_number()
     def get_number(self):
-        self.magic_number = int(input("What is your number? "))
+        self.magic_number = int(input(f"What is your number between {self.min_number}-{self.max_number}? "))
 
 class Computer(Player_BASE):
     pass
