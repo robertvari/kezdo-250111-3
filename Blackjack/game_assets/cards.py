@@ -1,3 +1,5 @@
+import random
+
 class Card:
     def __init__(self, name, value):
         self.__name = name
@@ -25,7 +27,16 @@ class Card:
 class Deck:
     def __init__(self):
         self.__cards = []
+        self.create()
     
+    @property
+    def cards(self):
+        return tuple(self.__cards)
+
+    @property
+    def card_number(self):
+        return len(self.__cards)
+
     def create(self):
         cards = [
             ["2", 2],
@@ -44,10 +55,20 @@ class Deck:
         ]
 
         suits = ["Heart", "Club", "Diamond", "Spade"]
+
+        for suit in suits:
+            for card in cards:
+                card_name = f"{suit} {card[0]}"
+                card_value = card[1]
+
+                new_card = Card(card_name, card_value)
+                self.__cards.append(new_card)
+        
+        random.shuffle(self.__cards)
     
     def __str__(self):
         return f"{self.__cards}"
 
 if __name__ == "__main__":
     deck = Deck()
-    print(deck)
+    print(deck.card_number)
