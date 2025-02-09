@@ -96,7 +96,6 @@ class Player(Player_BASE):
             else:
                 self.playing = False
 
-
 class Computer(Player_BASE):
     pass
 
