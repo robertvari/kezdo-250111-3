@@ -59,6 +59,11 @@ class Player_BASE:
     def show_hand(self):
         print(f"{self.__hand} Hand value: {self.hand_value}")
 
+    def add_card(self, new_card):
+        if self.hand_value > 10 and new_card.value == 11:
+            new_card.change_ace_value()
+        self.__hand.append(new_card)
+
     def __get_random_name(self):
         first_names = ["Liam", "Emma", "Noah", "Olivia", "Ethan", "Ava", "James", "Sophia", "Benjamin", "Mia"]
         last_names = ["Smith", "Johnson", "Williams", "Brown", "Jones", "Garcia", "Miller", "Davis", "Rodriguez", "Martinez"]
@@ -76,7 +81,20 @@ class Player(Player_BASE):
     def draw(self, deck):
         print(f"This is your turn {self.name}")
         while self.playing:
-            self.playing = False
+            if self.hand_value > 21:
+                print("Your hand value is greater than 21")
+                self.playing = False
+                break
+
+            self.show_hand()
+
+            respons = input("Do you want to draw a new card? (y/n)")
+            if respons == "y":
+                new_card = deck.draw()
+                print(f"Your new card: {new_card}")
+                self.add_card(new_card)
+            else:
+                self.playing = False
 
 
 class Computer(Player_BASE):
