@@ -5,6 +5,7 @@ class MagicNumber:
     def __init__(self):
         self.player = Player()
         self.computer = Computer()
+        self.computer.get_name()
 
         self.clear_screen()
         self.intro()
@@ -48,7 +49,9 @@ class MagicNumber:
         if self.computer.magic_number == self.player.magic_number:
             print(f"You win {self.player}! {self.computer.magic_number} was my number")
             self.player.add_coins(10)
+            self.computer.remove_coins(10)
         else:
+            self.computer.add_coins(10)
             self.player.remove_coins(10)
             print("You lost this round :(")
 
