@@ -36,10 +36,12 @@ class Computer(Player_BASE):
     pass
 
 
-player1 = Player()
-player2 = Computer()
-player1.create()
-player2.create()
 
-print(player1.name)
-print(player2.name)
+if __name__ == "__name__":
+    player1 = Player()
+    player2 = Computer()
+    player1.create()
+    player2.create()
+
+    print(player1.name)
+    print(player2.name)
