@@ -70,6 +70,12 @@ class MagicNumber:
         print("See you next time!")
         exit()
 
+
+
+class Player_BASE:
+    pass
+
+
 class Player:
     def __init__(self):
         self.name = None
@@ -103,6 +109,7 @@ class Computer:
         self.min_number = 1
         self.max_number = 10
         self.magic_number = 0
+        self.coins = 20
 
     def get_number(self):
         self.magic_number = random.randint(self.min_number, self.max_number)
