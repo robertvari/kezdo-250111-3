@@ -19,6 +19,14 @@ class Player_BASE:
     def hand_value(self):
         return sum([card.value for card in self.__hand])
 
+    @property
+    def playing(self):
+        return self.__playing
+    
+    @playing.setter
+    def playing(self, new_value):
+        self.__playing = new_value
+
     def create(self):
         self.__credits = random.randint(10, 100)
         self.__name = self.__get_random_name()
@@ -63,6 +71,13 @@ class Player(Player_BASE):
     def create(self):
         super().create()
         self.name = "Robert Vari"
+    
+    # if we override a method the signature has to match!!!!!
+    def draw(self, deck):
+        print(f"This is your turn {self.name}")
+        while self.playing:
+            self.playing = False
+
 
 class Computer(Player_BASE):
     pass
