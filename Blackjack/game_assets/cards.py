@@ -66,9 +66,18 @@ class Deck:
         
         random.shuffle(self.__cards)
     
+    def draw(self):
+        return self.__cards.pop(0)
+
     def __str__(self):
         return f"{self.__cards}"
 
 if __name__ == "__main__":
     deck = Deck()
-    print(deck.card_number)
+    card1 = deck.draw()
+    card2 = deck.draw()
+    card3 = deck.draw()
+    card4 = deck.draw()
+
+    hand = [card1, card2, card3, card4]
+    print(hand)

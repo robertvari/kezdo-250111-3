@@ -1,9 +1,12 @@
 import os, time
+from game_assets.cards import Deck
 
 class Blackjack:
     def __init__(self):
         self.clear_screen()
         self.intro()
+
+        self.deck = Deck()
 
         self.player = None
         self.computer1 = None
