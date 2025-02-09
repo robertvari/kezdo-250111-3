@@ -1,4 +1,4 @@
-import random
+import random, time
 
 class Player_BASE:
     def __init__(self):
@@ -15,9 +15,41 @@ class Player_BASE:
     def name(self, new_name):
         self.__name = new_name
 
+    @property
+    def hand_value(self):
+        return sum([card.value for card in self.__hand])
+
     def create(self):
         self.__credits = random.randint(10, 100)
         self.__name = self.__get_random_name()
+
+    def draw(self, deck):
+        while self.__playing:
+            if self.hand_value <= random.randint(16, 19):
+                print(f"{self.__name} draws a card")
+                time.sleep(2)
+                new_card = deck.draw()
+                if self.hand_value > 10 and new_card.value == 11:
+                    new_card.change_ace_value()
+                self.__hand.append(new_card)
+            else:
+                print(f"{self.__name} finishes drawing.")
+                self.__playing = False
+
+    def init_hand(self, deck):
+        self.__hand.clear()
+        self.__playing = True
+
+        new_card = deck.draw()
+        self.__hand.append(new_card)
+
+        new_card = deck.draw()
+        if self.hand_value > 10 and new_card.value == 11:
+            new_card.change_ace_value()
+        self.__hand.append(new_card)
+
+    def show_hand(self):
+        print(f"{self.__hand} Hand value: {self.hand_value}")
 
     def __get_random_name(self):
         first_names = ["Liam", "Emma", "Noah", "Olivia", "Ethan", "Ava", "James", "Sophia", "Benjamin", "Mia"]
@@ -30,18 +62,31 @@ class Player_BASE:
 class Player(Player_BASE):
     def create(self):
         super().create()
-        self.name = input("What is your name? ")
+        self.name = "Robert Vari"
 
 class Computer(Player_BASE):
     pass
 
 
 
-if __name__ == "__name__":
+if __name__ == "__main__":
+    from cards import Deck
+
     player1 = Player()
     player2 = Computer()
     player1.create()
     player2.create()
 
-    print(player1.name)
-    print(player2.name)
+    deck = Deck()
+
+    # start new round and drow two cards for each player
+    player1.init_hand(deck)
+    player2.init_hand(deck)
+
+    # each player starts their round
+    player1.draw(deck)
+    player2.draw(deck)
+
+    # show hand to decite who wins
+    player1.show_hand()
+    player2.show_hand()
