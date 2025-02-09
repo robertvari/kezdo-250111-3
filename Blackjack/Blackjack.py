@@ -5,6 +5,12 @@ class Blackjack:
         self.clear_screen()
         self.intro()
 
+        self.player = None
+        self.computer1 = None
+        self.computer2 = None
+        self.computer3 = None
+
+
     def clear_screen(self):
         if os.name == "nt":
             os.system("cls")
