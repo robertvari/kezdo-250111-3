@@ -5,6 +5,7 @@ class MagicNumber:
     def __init__(self):
         self.player = Player()
         self.computer = Computer()
+        self.computer.get_name()
 
         self.clear_screen()
         self.intro()
@@ -48,7 +49,9 @@ class MagicNumber:
         if self.computer.magic_number == self.player.magic_number:
             print(f"You win {self.player}! {self.computer.magic_number} was my number")
             self.player.add_coins(10)
+            self.computer.remove_coins(10)
         else:
+            self.computer.add_coins(10)
             self.player.remove_coins(10)
             print("You lost this round :(")
 
@@ -70,14 +73,23 @@ class MagicNumber:
         print("See you next time!")
         exit()
 
-class Player:
+
+
+class Player_BASE:
     def __init__(self):
         self.name = None
-        self.coins = 20
+        self.coins = 100
         self.magic_number = 0
+        self.min_number = 1
+        self.max_number = 10
     
-    def ask_next_round(self):
-        return input("Do you want to play again? (y/n)")
+    def get_number(self):
+        self.magic_number = random.randint(self.min_number, self.max_number)
+    
+    def get_name(self):
+        first_names = ["Liam", "Emma", "Noah", "Olivia", "Ethan", "Ava", "James", "Sophia", "Benjamin", "Mia"]
+        last_names = ["Smith", "Johnson", "Williams", "Brown", "Jones", "Garcia", "Miller", "Davis", "Rodriguez", "Martinez"]
+        self.name = f"{random.choice(first_names)} {random.choice(last_names)}"
 
     def add_coins(self, coins):
         self.coins += coins
@@ -88,23 +100,23 @@ class Player:
         self.coins -= coins
         print(f"{self.name} loses {coins} coins.")
         print(f"Now you have {self.coins} coins")
-
-    def get_name(self):
-        self.name = input("What is your name? ")
-
-    def get_number(self):
-        self.magic_number = int(input("What is your number? "))
-
+    
     def __str__(self):
         return self.name
 
-class Computer:
-    def __init__(self):
-        self.min_number = 1
-        self.max_number = 10
-        self.magic_number = 0
+class Player(Player_BASE):
+    def ask_next_round(self):
+        return input("Do you want to play again? (y/n)")
 
+    # full ovveride on get_name()
+    def get_name(self):
+        self.name = input("What is your name? ")
+
+    # full override on get_number()
     def get_number(self):
-        self.magic_number = random.randint(self.min_number, self.max_number)
+        self.magic_number = int(input(f"What is your number between {self.min_number}-{self.max_number}? "))
+
+class Computer(Player_BASE):
+    pass
 
 MagicNumber()
