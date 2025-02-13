@@ -51,7 +51,7 @@ A következő használatával tényleg elrejthető egy az osztályban definiált
 class MyClass:
     name = "Robert"
     _myProtectedName = "Csaba"
-    _my_private_name = "Csilla"
+    __my_private_name = "Csilla"
 ```
 
 Ha megpróbálod printelni a `_my_private_name` attribútomot akkor ezt kapod:
